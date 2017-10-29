@@ -1,7 +1,7 @@
 FROM debian:stretch
 
-ARG DOMAIN
-ENV DOMAIN ${DOMAIN:-app.dev}
+# ARG DOMAIN
+# ENV DOMAIN ${DOMAIN:-app.dev}
 
 RUN apt-get update && apt-get install -y \
    nginx \
@@ -17,7 +17,7 @@ RUN ln -sf /etc/nginx/sites-available/symfony.conf /etc/nginx/sites-enabled/symf
 #RUN ln -sf /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled
 #RUN ln -sf /etc/nginx/sites-available/php-generic.conf /etc/nginx/sites-enabled/php-generic
 
-RUN sed -i "s/server_name\s\([^\s]*\)\s\([^;]*\);/server_name ${DOMAIN} www.${DOMAIN};/g" /etc/nginx/sites-enabled/symfony.conf
+# RUN sed -i "s/server_name\s\([^\s]*\)\s\([^;]*\);/server_name ${DOMAIN} www.${DOMAIN};/g" /etc/nginx/sites-enabled/symfony.conf
 
 RUN rm /etc/nginx/sites-enabled/default
 
