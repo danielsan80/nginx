@@ -1,7 +1,7 @@
 FROM debian:stretch
 
-# ARG DOMAIN
-# ENV DOMAIN ${DOMAIN:-app.dev}
+ARG DOMAIN
+ENV DOMAIN ${DOMAIN:-app.dev}
 
 RUN apt-get update && apt-get install -y \
    nginx \
