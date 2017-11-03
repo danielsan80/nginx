@@ -1,10 +1,11 @@
 FROM debian:stretch
 
-ARG DOMAIN
-ARG FRAMEWORK
+#ARG DOMAIN
+#ARG FRAMEWORK
 
-ENV DOMAIN ${DOMAIN:-app.dev}
-ENV FRAMEWORK ${FRAMEWORK:-php}
+#ENV DOMAIN ${DOMAIN:-app.dev}
+#ENV FRAMEWORK ${FRAMEWORK:-php}
+ENV FRAMEWORK php
 
 RUN apt-get update && apt-get install -y \
    nginx \
@@ -12,13 +13,9 @@ RUN apt-get update && apt-get install -y \
 
 ADD nginx.conf /etc/nginx/
 
-ADD vhosts/${FRAMEWORK}.conf /etc/nginx/sites-available/
-#ADD default.conf /etc/nginx/sites-available/
-#ADD php-generic.conf /etc/nginx/sites-available/
+ADD ${FRAMEWORK}.conf /etc/nginx/sites-available/
 
 RUN ln -sf /etc/nginx/sites-available/${FRAMEWORK}.conf /etc/nginx/sites-enabled/${FRAMEWORK}.conf
-#RUN ln -sf /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled
-#RUN ln -sf /etc/nginx/sites-available/php-generic.conf /etc/nginx/sites-enabled/php-generic
 
 # RUN sed -i "s/server_name\s\([^\s]*\)\s\([^;]*\);/server_name ${DOMAIN} www.${DOMAIN};/g" /etc/nginx/sites-enabled/${FRAMEWORK}.conf
 
@@ -28,7 +25,7 @@ RUN echo "upstream php-upstream { server php:9000; }" > /etc/nginx/conf.d/upstre
 
 RUN usermod -u 1000 www-data
 
-#RUN echo 'alias ll="ls -alhF"' >> ~/.bashrc
+RUN echo 'alias ll="ls -alhF"' >> ~/.bashrc
 
 CMD ["nginx"]
 
