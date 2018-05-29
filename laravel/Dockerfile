@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:buster-slim
 
 LABEL mantainer="m.galacci@gmail.com"
 
@@ -7,7 +7,7 @@ LABEL mantainer="m.galacci@gmail.com"
 
 #ENV DOMAIN ${DOMAIN:-app.dev}
 #ENV FRAMEWORK ${FRAMEWORK:-php}
-ENV FRAMEWORK symfony
+ENV FRAMEWORK laravel
 
 RUN apt-get update && apt-get install -y \
    nginx \
